@@ -7,21 +7,23 @@ describe("NinjaNameGeneratorPage", () => {
   describe("When the component is rendered, the form inputs start empty and the generate button is disabled", () => {
     test("Card number input starts empty", () => {
       render(<NinjaNameGeneratorPage />);
-      const cardInput = screen.getByPlaceholderText(
-        "Os 16 números do cartão da sua mãe"
-      );
+      const cardInput = screen.getByRole("textbox", { name: /card number/i });
       expect(cardInput).toHaveValue("");
     });
 
     test("CVV input starts empty", () => {
       render(<NinjaNameGeneratorPage />);
-      const cvvInput = screen.getByPlaceholderText("Os 3 números do verso");
+      const cvvInput = screen.getByRole("textbox", {
+        name: /card verification value/i,
+      });
       expect(cvvInput).toHaveValue("");
     });
 
     test("Expiration date input starts empty", () => {
       render(<NinjaNameGeneratorPage />);
-      const expDateInput = screen.getByPlaceholderText("A data de validade");
+      const expDateInput = screen.getByRole("textbox", {
+        name: /card expiration date/i,
+      });
       expect(expDateInput).toHaveValue("");
     });
 
@@ -37,8 +39,12 @@ describe("NinjaNameGeneratorPage", () => {
       render(<NinjaNameGeneratorPage />);
       const user = userEvent.setup();
 
-      const cvvInput = screen.getByPlaceholderText("Os 3 números do verso");
-      const expDateInput = screen.getByPlaceholderText("A data de validade");
+      const cvvInput = screen.getByRole("textbox", {
+        name: /card verification value/i,
+      });
+      const expDateInput = screen.getByRole("textbox", {
+        name: /card expiration date/i,
+      });
       const generateButton = screen.getByRole("button", { name: /gerar/i });
 
       await user.type(expDateInput, "05/2025");
@@ -51,11 +57,13 @@ describe("NinjaNameGeneratorPage", () => {
       render(<NinjaNameGeneratorPage />);
       const user = userEvent.setup();
 
-      const cardInput = screen.getByPlaceholderText(
-        "Os 16 números do cartão da sua mãe"
-      );
-      const cvvInput = screen.getByPlaceholderText("Os 3 números do verso");
-      const expDateInput = screen.getByPlaceholderText("A data de validade");
+      const cardInput = screen.getByRole("textbox", { name: /card number/i });
+      const cvvInput = screen.getByRole("textbox", {
+        name: /card verification value/i,
+      });
+      const expDateInput = screen.getByRole("textbox", {
+        name: /card expiration date/i,
+      });
       const generateButton = screen.getByRole("button", { name: /gerar/i });
 
       await user.type(expDateInput, "05/2025");
@@ -69,10 +77,10 @@ describe("NinjaNameGeneratorPage", () => {
       render(<NinjaNameGeneratorPage />);
       const user = userEvent.setup();
 
-      const cardInput = screen.getByPlaceholderText(
-        "Os 16 números do cartão da sua mãe"
-      );
-      const expDateInput = screen.getByPlaceholderText("A data de validade");
+      const cardInput = screen.getByRole("textbox", { name: /card number/i });
+      const expDateInput = screen.getByRole("textbox", {
+        name: /card expiration date/i,
+      });
       const generateButton = screen.getByRole("button", { name: /gerar/i });
 
       await user.type(expDateInput, "05/2025");
@@ -85,11 +93,13 @@ describe("NinjaNameGeneratorPage", () => {
       render(<NinjaNameGeneratorPage />);
       const user = userEvent.setup();
 
-      const cardInput = screen.getByPlaceholderText(
-        "Os 16 números do cartão da sua mãe"
-      );
-      const cvvInput = screen.getByPlaceholderText("Os 3 números do verso");
-      const expDateInput = screen.getByPlaceholderText("A data de validade");
+      const cardInput = screen.getByRole("textbox", { name: /card number/i });
+      const cvvInput = screen.getByRole("textbox", {
+        name: /card verification value/i,
+      });
+      const expDateInput = screen.getByRole("textbox", {
+        name: /card expiration date/i,
+      });
       const generateButton = screen.getByRole("button", { name: /gerar/i });
 
       await user.type(expDateInput, "05/2025");
@@ -103,10 +113,10 @@ describe("NinjaNameGeneratorPage", () => {
       render(<NinjaNameGeneratorPage />);
       const user = userEvent.setup();
 
-      const cardInput = screen.getByPlaceholderText(
-        "Os 16 números do cartão da sua mãe"
-      );
-      const cvvInput = screen.getByPlaceholderText("Os 3 números do verso");
+      const cardInput = screen.getByRole("textbox", { name: /card number/i });
+      const cvvInput = screen.getByRole("textbox", {
+        name: /card verification value/i,
+      });
       const generateButton = screen.getByRole("button", { name: /gerar/i });
 
       await user.type(cardInput, "1234567812345678");
@@ -119,11 +129,13 @@ describe("NinjaNameGeneratorPage", () => {
       render(<NinjaNameGeneratorPage />);
       const user = userEvent.setup();
 
-      const cardInput = screen.getByPlaceholderText(
-        "Os 16 números do cartão da sua mãe"
-      );
-      const cvvInput = screen.getByPlaceholderText("Os 3 números do verso");
-      const expDateInput = screen.getByPlaceholderText("A data de validade");
+      const cardInput = screen.getByRole("textbox", { name: /card number/i });
+      const cvvInput = screen.getByRole("textbox", {
+        name: /card verification value/i,
+      });
+      const expDateInput = screen.getByRole("textbox", {
+        name: /card expiration date/i,
+      });
       const generateButton = screen.getByRole("button", { name: /gerar/i });
 
       await user.type(expDateInput, "05/2023");
@@ -138,11 +150,13 @@ describe("NinjaNameGeneratorPage", () => {
     render(<NinjaNameGeneratorPage />);
     const user = userEvent.setup();
 
-    const cardInput = screen.getByPlaceholderText(
-      "Os 16 números do cartão da sua mãe"
-    );
-    const cvvInput = screen.getByPlaceholderText("Os 3 números do verso");
-    const expDateInput = screen.getByPlaceholderText("A data de validade");
+    const cardInput = screen.getByRole("textbox", { name: /card number/i });
+    const cvvInput = screen.getByRole("textbox", {
+      name: /card verification value/i,
+    });
+    const expDateInput = screen.getByRole("textbox", {
+      name: /card expiration date/i,
+    });
     const generateButton = screen.getByRole("button", { name: /gerar/i });
 
     await user.type(expDateInput, "05/2025");
@@ -156,11 +170,13 @@ describe("NinjaNameGeneratorPage", () => {
     render(<NinjaNameGeneratorPage />);
     const user = userEvent.setup();
 
-    const cardInput = screen.getByPlaceholderText(
-      "Os 16 números do cartão da sua mãe"
-    );
-    const cvvInput = screen.getByPlaceholderText("Os 3 números do verso");
-    const expDateInput = screen.getByPlaceholderText("A data de validade");
+    const cardInput = screen.getByRole("textbox", { name: /card number/i });
+    const cvvInput = screen.getByRole("textbox", {
+      name: /card verification value/i,
+    });
+    const expDateInput = screen.getByRole("textbox", {
+      name: /card expiration date/i,
+    });
     const generateButton = screen.getByRole("button", { name: /gerar/i });
 
     await user.type(expDateInput, "05/2025");
@@ -177,11 +193,13 @@ describe("NinjaNameGeneratorPage", () => {
     render(<NinjaNameGeneratorPage />);
     const user = userEvent.setup();
 
-    const cardInput = screen.getByPlaceholderText(
-      "Os 16 números do cartão da sua mãe"
-    );
-    const cvvInput = screen.getByPlaceholderText("Os 3 números do verso");
-    const expDateInput = screen.getByPlaceholderText("A data de validade");
+    const cardInput = screen.getByRole("textbox", { name: /card number/i });
+    const cvvInput = screen.getByRole("textbox", {
+      name: /card verification value/i,
+    });
+    const expDateInput = screen.getByRole("textbox", {
+      name: /card expiration date/i,
+    });
     const generateButton = screen.getByRole("button", { name: /gerar/i });
 
     await user.type(expDateInput, "05/2025");
@@ -192,11 +210,13 @@ describe("NinjaNameGeneratorPage", () => {
     const backButton = await screen.findByRole("button", { name: /voltar/i });
     await user.click(backButton);
 
-    const newCardInput = screen.getByPlaceholderText(
-      "Os 16 números do cartão da sua mãe"
-    );
-    const newCvvInput = screen.getByPlaceholderText("Os 3 números do verso");
-    const newExpDateInput = screen.getByPlaceholderText("A data de validade");
+    const newCardInput = screen.getByRole("textbox", { name: /card number/i });
+    const newCvvInput = screen.getByRole("textbox", {
+      name: /card verification value/i,
+    });
+    const newExpDateInput = screen.getByRole("textbox", {
+      name: /card expiration date/i,
+    });
     const newGenerateButton = screen.getByRole("button", { name: /gerar/i });
 
     expect(newCardInput).toHaveValue("");

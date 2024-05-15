@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { NinjaNameGeneratorPage } from "../../pages/NinjaNameGeneratorPage";
 
-describe("NinjaGeneratorPage", () => {
+describe("NinjaNameGeneratorPage", () => {
   describe("When the component is rendered, the form inputs start empty and the generate button is disabled", () => {
     test("Card number input starts empty", () => {
       render(<NinjaNameGeneratorPage />);

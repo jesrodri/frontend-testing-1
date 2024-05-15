@@ -1,6 +1,7 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import { render, RenderResult } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
+import dayjs from "dayjs";
 import { NinjaNameGeneratorPage } from "../../pages/NinjaNameGeneratorPage";
 
 const componentSetup = () => {
@@ -32,6 +33,12 @@ const formQueries = (
     expDateInput,
     generateButton,
   };
+};
+
+const VALID_FORM_VALUES = {
+  cardNumber: "1234567812345678",
+  cvv: "123",
+  expDate: dayjs().add(2, "years").format("MM/YYYY"),
 };
 
 describe("NinjaNameGeneratorPage", () => {
@@ -67,8 +74,8 @@ describe("NinjaNameGeneratorPage", () => {
 
       const { cvvInput, expDateInput, generateButton } = formQueries(screen);
 
-      await user.type(expDateInput, "05/2025");
-      await user.type(cvvInput, "123");
+      await user.type(expDateInput, VALID_FORM_VALUES.expDate);
+      await user.type(cvvInput, VALID_FORM_VALUES.cvv);
 
       expect(generateButton).toBeDisabled();
     });
@@ -79,9 +86,9 @@ describe("NinjaNameGeneratorPage", () => {
       const { cardInput, cvvInput, expDateInput, generateButton } =
         formQueries(screen);
 
-      await user.type(expDateInput, "05/2025");
+      await user.type(expDateInput, VALID_FORM_VALUES.expDate);
       await user.type(cardInput, "12345678");
-      await user.type(cvvInput, "123");
+      await user.type(cvvInput, VALID_FORM_VALUES.cvv);
 
       expect(generateButton).toBeDisabled();
     });
@@ -91,8 +98,8 @@ describe("NinjaNameGeneratorPage", () => {
 
       const { cardInput, expDateInput, generateButton } = formQueries(screen);
 
-      await user.type(expDateInput, "05/2025");
-      await user.type(cardInput, "1234567812345678");
+      await user.type(expDateInput, VALID_FORM_VALUES.expDate);
+      await user.type(cardInput, VALID_FORM_VALUES.cardNumber);
 
       expect(generateButton).toBeDisabled();
     });
@@ -103,8 +110,8 @@ describe("NinjaNameGeneratorPage", () => {
       const { cardInput, cvvInput, expDateInput, generateButton } =
         formQueries(screen);
 
-      await user.type(expDateInput, "05/2025");
-      await user.type(cardInput, "1234567812345678");
+      await user.type(expDateInput, VALID_FORM_VALUES.expDate);
+      await user.type(cardInput, VALID_FORM_VALUES.cardNumber);
       await user.type(cvvInput, "1");
 
       expect(generateButton).toBeDisabled();
@@ -115,8 +122,8 @@ describe("NinjaNameGeneratorPage", () => {
 
       const { cardInput, cvvInput, generateButton } = formQueries(screen);
 
-      await user.type(cardInput, "1234567812345678");
-      await user.type(cvvInput, "123");
+      await user.type(cardInput, VALID_FORM_VALUES.cardNumber);
+      await user.type(cvvInput, VALID_FORM_VALUES.cvv);
 
       expect(generateButton).toBeDisabled();
     });
@@ -128,8 +135,8 @@ describe("NinjaNameGeneratorPage", () => {
         formQueries(screen);
 
       await user.type(expDateInput, "05/2023");
-      await user.type(cardInput, "1234567812345678");
-      await user.type(cvvInput, "123");
+      await user.type(cardInput, VALID_FORM_VALUES.cardNumber);
+      await user.type(cvvInput, VALID_FORM_VALUES.cvv);
 
       expect(generateButton).toBeDisabled();
     });
@@ -141,9 +148,9 @@ describe("NinjaNameGeneratorPage", () => {
     const { cardInput, cvvInput, expDateInput, generateButton } =
       formQueries(screen);
 
-    await user.type(expDateInput, "05/2025");
-    await user.type(cardInput, "1234567812345678");
-    await user.type(cvvInput, "123");
+    await user.type(expDateInput, VALID_FORM_VALUES.expDate);
+    await user.type(cardInput, VALID_FORM_VALUES.cardNumber);
+    await user.type(cvvInput, VALID_FORM_VALUES.cvv);
 
     expect(generateButton).toBeEnabled();
   });
@@ -154,14 +161,19 @@ describe("NinjaNameGeneratorPage", () => {
     const { cardInput, cvvInput, expDateInput, generateButton } =
       formQueries(screen);
 
-    await user.type(expDateInput, "05/2025");
-    await user.type(cardInput, "1234567812345678");
-    await user.type(cvvInput, "123");
+    await user.type(expDateInput, VALID_FORM_VALUES.expDate);
+    await user.type(cardInput, VALID_FORM_VALUES.cardNumber);
+    await user.type(cvvInput, VALID_FORM_VALUES.cvv);
     await user.click(generateButton);
 
-    const ninjaName = await screen.findByText(/seu nome é:/i);
+    const mockedNinjaName = vi.fn();
+    mockedNinjaName.mockReturnValue("Miyu Tsuchigumo");
 
-    expect(ninjaName).toBeInTheDocument();
+    const ninjaName = mockedNinjaName();
+
+    const nameElement = await screen.findByText(ninjaName);
+
+    expect(nameElement).toBeInTheDocument();
   });
 
   test("When we generate a ninja name and click the back button, it should show the empty form again", async () => {

@@ -128,13 +128,12 @@ describe("useCardForm", () => {
   describe("When we set the three fields to valid values, it returns isValid as true", () => {
     test("isValid is true if expiration date year is after current year", () => {
       const { result } = renderHook(() => useCardForm());
-      const d = new Date(2025, 5, 30);
-      const day = dayjs(d);
+      const date = dayjs().add(2, "years");
 
       act(() => {
         result.current.setCardNumber("1234567812345678");
         result.current.setCardVerificationValue("123");
-        result.current.setCardExpirationDate(day);
+        result.current.setCardExpirationDate(date);
       });
 
       expect(result.current.isValid).toBe(true);
@@ -142,13 +141,12 @@ describe("useCardForm", () => {
 
     test("isValid is true if expiration date year equals current year but month is after", () => {
       const { result } = renderHook(() => useCardForm());
-      const d = new Date(2024, 7, 30);
-      const day = dayjs(d);
+      const date = dayjs().add(2, "months");
 
       act(() => {
         result.current.setCardNumber("1234567812345678");
         result.current.setCardVerificationValue("123");
-        result.current.setCardExpirationDate(day);
+        result.current.setCardExpirationDate(date);
       });
 
       expect(result.current.isValid).toBe(true);
@@ -158,13 +156,12 @@ describe("useCardForm", () => {
   describe("When we set any of the fields is invalid, it returns isValid as false", () => {
     test("isValid is false if card number is invalid", () => {
       const { result } = renderHook(() => useCardForm());
-      const d = new Date(2025, 5, 30);
-      const day = dayjs(d);
+      const date = dayjs().add(2, "years");
 
       act(() => {
         result.current.setCardNumber("12345678");
         result.current.setCardVerificationValue("123");
-        result.current.setCardExpirationDate(day);
+        result.current.setCardExpirationDate(date);
       });
 
       expect(result.current.isValid).toBe(false);
@@ -172,13 +169,12 @@ describe("useCardForm", () => {
 
     test("isValid is false if card verification value is invalid", () => {
       const { result } = renderHook(() => useCardForm());
-      const d = new Date(2025, 5, 30);
-      const day = dayjs(d);
+      const date = dayjs().add(2, "years");
 
       act(() => {
         result.current.setCardNumber("1234567812345678");
         result.current.setCardVerificationValue("12");
-        result.current.setCardExpirationDate(day);
+        result.current.setCardExpirationDate(date);
       });
 
       expect(result.current.isValid).toBe(false);
@@ -186,13 +182,12 @@ describe("useCardForm", () => {
 
     test("isValid is false if card expiration date is invalid", () => {
       const { result } = renderHook(() => useCardForm());
-      const d = new Date(2021, 5, 30);
-      const day = dayjs(d);
+      const date = dayjs().subtract(2, "years");
 
       act(() => {
         result.current.setCardNumber("1234567812345678");
         result.current.setCardVerificationValue("123");
-        result.current.setCardExpirationDate(day);
+        result.current.setCardExpirationDate(date);
       });
 
       expect(result.current.isValid).toBe(false);
@@ -200,13 +195,12 @@ describe("useCardForm", () => {
 
     test("isValid is false if expiration date year equals current year but month is before", () => {
       const { result } = renderHook(() => useCardForm());
-      const d = new Date(2024, 4, 30);
-      const day = dayjs(d);
+      const date = dayjs().subtract(2, "months");
 
       act(() => {
         result.current.setCardNumber("1234567812345678");
         result.current.setCardVerificationValue("123");
-        result.current.setCardExpirationDate(day);
+        result.current.setCardExpirationDate(date);
       });
 
       expect(result.current.isValid).toBe(false);
